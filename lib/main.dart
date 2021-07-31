@@ -1,3 +1,4 @@
+import 'package:clima/repositories/weather_repository/weather_repository.dart';
 import 'package:clima/screens/bloc/weather_bloc.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: BlocProvider(
-        create: (context) => WeatherBloc()
+        create: (context) => WeatherBloc(weatherRepository: WeatherRepository())
           ..add(
             GetLocalWeather(),
           ),

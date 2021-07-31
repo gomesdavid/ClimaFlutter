@@ -1,13 +1,15 @@
-import 'package:http/http.dart' as http;
+import 'package:clima/repositories/weather_repository/weather_endpoints.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper(this.url);
+  NetworkHelper({Client client}) : http = client ?? Client();
 
-  final String url;
+  final Client http;
 
-  Future getData() async {
-    http.Response response = await http.get(Uri.parse(url));
+  Future _getData(String url) async {
+    Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       String data = response.body;
 
@@ -15,5 +17,13 @@ class NetworkHelper {
 
       return decodedData;
     }
+  }
+
+  Future getCityWeatherData(String cityName) async {
+    return await _getData(WeatherEndpoints.getCityWeather(cityName));
+  }
+
+  Future getLocationWeatherData(Position location) async {
+    return await _getData(WeatherEndpoints.getLocationWeather(location));
   }
 }

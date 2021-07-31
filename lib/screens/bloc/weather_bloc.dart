@@ -10,8 +10,9 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc({WeatherRepository weatherRepository})
-      : _weatherRepository = weatherRepository ?? WeatherRepository(),
+  WeatherBloc({@required WeatherRepository weatherRepository})
+      : assert(weatherRepository != null),
+        _weatherRepository = weatherRepository,
         super(WeatherInitial());
 
   final WeatherRepository _weatherRepository;

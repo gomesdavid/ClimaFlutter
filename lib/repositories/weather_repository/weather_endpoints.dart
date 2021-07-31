@@ -5,7 +5,7 @@ abstract class WeatherEndpoints {
   static final _openWeatherMapURL =
       'http://api.openweathermap.org/data/2.5/weather';
 
-  static String getCityWeather(String cityName) =>
+  static String getCityWeather(String cityName, {String apiKey}) =>
       '$_openWeatherMapURL?q=$cityName&appid=$_apiKey&units=metric';
 
   static String getLocationWeather(Position location) =>

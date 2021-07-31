@@ -71,6 +71,7 @@ class _WeatherInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<WeatherBloc>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,22 +81,22 @@ class _WeatherInfoPage extends StatelessWidget {
           children: <Widget>[
             TextButton(
               key: Key('location_screen_refresh_button'),
-              onPressed: () =>
-                  BlocProvider.of<WeatherBloc>(context).add(GetLocalWeather()),
+              onPressed: () => bloc.add(GetLocalWeather()),
               child: Icon(
                 Icons.near_me,
                 size: 50.0,
               ),
             ),
             TextButton(
-              key: Key('location_screen_search_city'),
+              key: Key('location_screen_search_city_button'),
               onPressed: () async {
                 var typedCityName = await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return CityScreen();
+                  return CityScreen(
+                    key: Key('city_screen'),
+                  );
                 }));
-                BlocProvider.of<WeatherBloc>(context)
-                    .add(GetCityWeather(typedCityName));
+                bloc.add(GetCityWeather(typedCityName));
               },
               child: Icon(
                 Icons.location_city,

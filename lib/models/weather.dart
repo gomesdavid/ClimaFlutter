@@ -1,7 +1,9 @@
-class WeatherModel {
-  int temperature;
-  String cityName;
-  int condition;
+import 'package:equatable/equatable.dart';
+
+class WeatherModel extends Equatable {
+  final int temperature;
+  final String cityName;
+  final int condition;
 
   WeatherModel({
     this.temperature,
@@ -17,6 +19,9 @@ class WeatherModel {
       condition: map['weather'][0]['id'],
     );
   }
+
+  @override
+  List<Object> get props => [temperature, cityName, condition];
 
   String get weatherIcon => _getWeatherIcon(condition);
 
